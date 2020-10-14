@@ -1,5 +1,7 @@
 #include<iostream>
 #include "Cliente.h"
+#include <sstream> 
+#include <string>
 using namespace std;
 
 Cliente::Cliente(){
@@ -23,14 +25,23 @@ Cliente::Cliente(int c,string n, string dir, int nt, int tel, string em, string 
 	telefono=tel;
 	email=em;
 	estado=es;
-
 }
 
 int** Cliente::getPedidos(){
 	
 }
 
-string Cliente::toString(){}
+string Cliente::toString(){
+	stringstream ss;
+	ss<<"\nCedula: "<<to_string(cedula);
+	ss<<"\nNombre: "<<nombre;
+	ss<<"\nDireccion: "<<direccion;
+	ss<<"\nEmail: "<<email;
+	ss<<"\nEstado: "<<estado;
+	ss<<"\nNumero de tarjeta: "<<to_string(numTarjeta);
+	ss<<"\nNumero de telefono: "<<to_string(telefono);
+	return ss.str();
+}
 
 
 

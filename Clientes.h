@@ -7,7 +7,7 @@ class Clientes{
 public:
 	Clientes();
 	~Clientes();
-	Cliente* crearCliente();
+	
 	Cliente* actualizarCliente();
 	bool eliminarCliente(int ced);
 	Cliente** listarClientes();
