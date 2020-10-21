@@ -3,7 +3,7 @@
 #include <sstream> 
 #include <string>
 using namespace std;
-
+using json = nlohmann::json;
 Cliente::Cliente(){
 	cedula=0;
 	nombre="";
@@ -14,8 +14,19 @@ Cliente::Cliente(){
 	estado="";
 	
 }
-Cliente::~Cliente(){
 
+Cliente::Cliente(nlohmann::basic_json<> jdata,string key){
+	cedula=stoi(key);
+	nombre=jdata["nombre"];
+	direccion=jdata["direccion"];
+	numTarjeta=stoi((string)jdata["numTarjeta"]);
+	telefono=stoi((string)jdata["telefono"]);
+	email=jdata["email"];
+	estado=jdata["estado"];
+}
+
+Cliente::~Cliente(){
+	//cout<<"\ndeleted: "<<to_string(cedula)<<"\n";
 }
 Cliente::Cliente(int c,string n, string dir, int nt, int tel, string em, string es){
 	cedula=c;
@@ -31,7 +42,7 @@ int** Cliente::getPedidos(){
 	
 }
 
-string Cliente::toString(){
+string Cliente::toString() const{
 	stringstream ss;
 	ss<<"\nCedula: "<<to_string(cedula);
 	ss<<"\nNombre: "<<nombre;
@@ -39,11 +50,9 @@ string Cliente::toString(){
 	ss<<"\nEmail: "<<email;
 	ss<<"\nEstado: "<<estado;
 	ss<<"\nNumero de tarjeta: "<<to_string(numTarjeta);
-	ss<<"\nNumero de telefono: "<<to_string(telefono);
+	ss<<"\nNumero de telefono: "<<to_string(telefono)<<"\n";
 	return ss.str();
 }
-
-
 
 int Cliente::getCedula(){
 	return cedula;
@@ -86,4 +95,11 @@ string Cliente::getEstado(){
 }
 void Cliente::setEstado(string estado){
 	this->estado=estado;
+}
+
+
+ostream&operator<<(ostream& os, const Cliente&cl)
+{
+	os << cl.toString();
+	return os;
 }
